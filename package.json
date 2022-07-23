@@ -1,0 +1,30 @@
+{
+  "name": "ez-route",
+  "version": "1.0.0",
+  "description": "A managed route and auto-generated RESTful API endpoints.",
+  "homepage": "https://github.com/rmindo/ez-route",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "keywords": [
+    "RESTful",
+    "API",
+    "route",
+    "express"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rmindo/ez-route"
+  },
+  "author": "Ruel Mindo",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.6"
+  }
+}

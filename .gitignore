@@ -1,0 +1,6 @@
+env
+.env*
+build
+node_modules
+*.exp.ts
+.DS_Store

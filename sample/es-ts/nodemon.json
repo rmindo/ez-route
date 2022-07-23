@@ -1,0 +1,9 @@
+{
+  "ext": "js,ts",
+  "exec": "yarn dev",
+  "watch": [
+    "src",
+    "/Users/Ruel/Projects/Applications/Source/Javascript/Packages/ez-route/src"
+  ],
+  "ignore": [".git", "node_modules"]
+}
