@@ -169,7 +169,7 @@ export default () => {
 
 ## Example
 
-See example at [https://github.com/coderstage/redux-stored-sample](https://github.com/coderstage/redux-stored-sample)
+See example at [https://github.com/rmindo/ez-route/tree/main/sample](https://github.com/rmindo/ez-route/tree/main/sample)
 
 
 ## Change Log
