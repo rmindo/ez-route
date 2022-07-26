@@ -92,13 +92,6 @@ exports.file = (() => {
   var fs = require('fs')
 
   return {
-    stack: (key = null) => {
-      var stack = (new Error()).stack.match(/\((.*)\)/g)
-      if(key && key >= 0) {
-        return stack[key]
-      }
-      return stack
-    },
     /**
      * Import file dynamically
      * 
