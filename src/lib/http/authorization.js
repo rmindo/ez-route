@@ -54,7 +54,7 @@ exports.validate = function(request, context) {
 
 
 /**
- * Validate authorization
+ * Verify authorization header
  * @param {string} request 
  * @param {object} context 
  */
@@ -74,7 +74,6 @@ exports.authenticate = function(request, context) {
           return context.auth.verify(secret, parsed.payload, parsed.signature)
         }
       }
-      return {code: 401, error: 'Missing Authorization'}
     },
   }
 }
