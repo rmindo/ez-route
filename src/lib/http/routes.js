@@ -164,7 +164,7 @@ const setRoutes = function(context, callback) {
        * Serve custom url without resource and version
        * useful for any custom request that needs an execution in the backend
        * 
-       * e.g. https://api.domain.com/api/custom-url
+       * e.g. https://api.domain.com/path-name
        */
       if(group.length == 1 || group.length == 2) {
         routes[name] = [[group[0], 'index', path, regex(path)]]
