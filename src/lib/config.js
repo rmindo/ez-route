@@ -44,7 +44,8 @@ var defaultConfig = {
   env: {
     vars: {
       SOURCE_DIR: `${process.env.PWD}/src`,
-      LIBRARY_DIR: `${process.env.PWD}/src/lib`
+      LIBRARY_DIR: `${process.env.PWD}/src/lib`,
+      ROUTES_DIR: `${process.env.PWD}/src/routes`
     }
   },
   routes: {}
