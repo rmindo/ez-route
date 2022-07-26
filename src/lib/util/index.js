@@ -13,7 +13,7 @@ exports.object = {
    * Check if key exist in an object
    * 
    * @array List of keys you want to check
-   * @object The object to check (heystack)
+   * @object The object to check (haystack)
    * 
    * 
    * @param {array} array 
@@ -29,7 +29,7 @@ exports.object = {
   /**
    * Get property and value recursively
    * 
-   * @object The object (heystack) where to search
+   * @object The object (haystack) where to search
    * @key The name (needle) you want to search
    * 
    * 
