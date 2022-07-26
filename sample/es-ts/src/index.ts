@@ -9,7 +9,9 @@ var app = HTTPRoute(config)
 
 
 app.use((req:any, res:any, next:any) => {
-  console.log(req.url)
+  /**
+   * Code here
+   */
   next()
 })
 

@@ -34,5 +34,19 @@ module.exports = {
         users: {},
       }
     },
+    docs: {
+      /**
+      * Pass through
+      */
+      pass: {
+        docs: ['index'],
+      },
+      version: ':version',
+      routes: {
+        docs: [
+          ['GET', 'index', '/docs']
+        ]
+      }
+    }
   },
 }
