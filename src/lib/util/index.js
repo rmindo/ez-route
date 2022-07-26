@@ -3,6 +3,8 @@
  */
 exports.auth = require('./auth')
 
+
+
 /**
  * Object utilities
  */
@@ -90,46 +92,81 @@ exports.file = (() => {
   var fs = require('fs')
 
   return {
+    stack: (key = null) => {
+      var stack = (new Error()).stack.match(/\((.*)\)/g)
+      if(key && key >= 0) {
+        return stack[key]
+      }
+      return stack
+    },
     /**
      * Import file dynamically
      * 
      * @path The path of the file
      * 
      * @param {string} path
+     * @param {string|object} type
      * @returns {promise|function|undefined}
      */
-    get: (path) => {
+    get: (path, type = null) => {
       var file = process.env.PWD.concat('/', path)
       try {
         /**
-         * ES module import
-         * This import triggers if you have "type": "module" inside the package.json,
+         * Get file regardless of file extension and module
          */
-        if(process.env.MODULE_TYPE === 'module') {
-          if(fs.existsSync(file) && fs.lstatSync(file).isDirectory()) {
-            /**
-             * NodeJS ES module does not support import directory with index.js automatically,
-             * So If the path is directory then add the index.js
-             */
-            return import(file.concat('/index.js'))
-          }
-          /**
-           * NodeJS ES module does not support without .js extension
-           */
-          else {
-            if(fs.existsSync(file.concat('.js'))) {
-              return import(file.concat('.js'))
-            }
+        if(type) {
+          var file = file.concat('.', type)
+          if(fs.existsSync(file)) {
+            return fs.readFileSync(file, 'utf8')
           }
         }
-        /**
-         * CommonJS module
-         */
         else {
-          return require(file)
+          /**
+           * ES module import
+           * This import triggers if you have "type": "module" inside the package.json,
+           */
+          if(process.env.MODULE_TYPE === 'module') {
+            if(fs.existsSync(file) && fs.lstatSync(file).isDirectory()) {
+              /**
+               * NodeJS ES module does not support import directory with index.js automatically,
+               * So If the path is directory then add the index.js
+               */
+              return import(file.concat('/index.js'))
+            }
+            /**
+             * NodeJS ES module does not support without .js extension
+             */
+            else {
+              if(fs.existsSync(file.concat('.js'))) {
+                return import(file.concat('.js'))
+              }
+            }
+          }
+          /**
+           * CommonJS module
+           */
+          else {
+            return require(file)
+          }
         }
       }
       catch(e) {}
+    },
+
+
+    /**
+     * Get the HTML content
+     * 
+     * @path Get path of html file
+     * 
+     * @param {string} path
+     * @returns {string}
+     */
+    html: (path) => {
+      var file = process.env.SOURCE_DIR.concat('/', path, '.html')
+      if(fs.existsSync(file)) {
+        return fs.readFileSync(file, 'utf8')
+      }
     },
 
 
@@ -182,15 +219,17 @@ exports.string = {
   * @returns {string}
   */
   replace: (string, data) => {
-    var patt = string.match(/(\{[a-z_]+\})/g)
-    if(patt) {
-      string = string.replace(new RegExp(patt.join('|'), 'g'), (v) => {
-        var value = data[v.match(/([a-z_]+)/g)]
-        if(value) {
-          return value
-        }
-        return ''
-      })
+    if(string) {
+      var patt = string.match(/(\{[a-z_]+\})/g)
+      if(patt) {
+        string = string.replace(new RegExp(patt.join('|'), 'g'), (v) => {
+          var value = data[v.match(/([a-z_]+)/g)]
+          if(value) {
+            return value
+          }
+          return ''
+        })
+      }
     }
     return string
   }
