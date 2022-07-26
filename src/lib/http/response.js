@@ -63,7 +63,7 @@ const auth = require('./authorization')
  */
 const getController = async function(path, method, context, [req, res, next]) {
   try {
-    var imported = await context.file.get(path.join('/'))
+    var imported = await context.file.get(path.filter(i => i).join('/'))
     if(imported) {
       /**
        * CommonJS module
@@ -157,7 +157,7 @@ module.exports = function(collection, method, context, callback) {
                   'No payload or secret key provided.'
                 )
               }
-  
+
               if(authenticate.verify(user.secret, user.payload) == true) {
                 return next()
               }
@@ -176,18 +176,20 @@ module.exports = function(collection, method, context, callback) {
      * Set route
      */
     ((path) => {
-      var routes = context.config.routes[url[1]]
       /**
-       * Check if url has version else use the custom url without resource
-       * useful for any custom request that needs an execution in the backend
+       * If the endpoint has version then use the RESTful resource else use the custom url without resource and version.
        * 
        * Go to ./routes and find `setRoutes()` for reference
        */
+      var routes = context.config.routes[url[1]]
       if(routes.version) {
-        path = ['src',...path,collection].filter(i => i)
+        path = [...path,collection]
       }
+      /**
+       * Import controller
+       */
       getController(path, method, context, [request, response, next])
     })
-    (['routes', ...url])
+    (['src', 'routes', ...url])
   }
 }
